@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BeerCo Sales Automation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8f8f8 60%, #b7e4c7 100%);
+        }
+        header {
+            background: #22223b;
+            color: #fff;
+            padding: 40px 0 30px 0;
+            text-align: center;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 16px rgba(34,34,59,0.08);
+        }
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.4rem;
+            color: #b7e4c7;
+        }
+        section {
+            margin: 40px auto;
+            padding: 40px 40px 32px 40px;
+            background: #fff;
+            border-radius: 18px;
+            max-width: 900px;
+            box-shadow: 0 8px 32px rgba(34,34,59,0.10);
+        }
+        h2 {
+            color: #2d6a4f;
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .stats div {
+            background: #e9ecef;
+            padding: 24px 36px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(34,34,59,0.06);
+            min-width: 180px;
+            text-align: center;
+        }
+        .manager-section {
+            background: #e9ecef;
+            padding: 32px 32px 24px 32px;
+            border-radius: 14px;
+            margin-top: 36px;
+            box-shadow: 0 2px 8px rgba(34,34,59,0.06);
+        }
+        label {
+            font-size: 1.2rem;
+            margin: 18px 0 6px 0;
+        }
+        input, select {
+            display: block;
+            width: 100%;
+            font-size: 1.1rem;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            border: 1px solid #b7e4c7;
+            border-radius: 6px;
+            background: #f8f8f8;
+        }
+        button {
+            background: #2d6a4f;
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #40916c;
+        }
+        #orderStatus {
+            margin-top: 18px;
+            font-size: 1.2rem;
+            color: #2d6a4f;
+            font-weight: bold;
+        }
+        ul {
+            font-size: 1.15rem;
+            margin-bottom: 18px;
+        }
+        @media (max-width: 1000px) {
+            section {
+                max-width: 98vw;
+                padding: 24px 8vw;
+            }
+            .stats div {
+                min-width: 120px;
+                padding: 16px 10px;
+            }
+        }
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            section { padding: 16px 2vw; }
+            .stats { flex-direction: column; gap: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BeerCo Sales Automation</h1>
+        <p>Your one-stop solution for automated beer sales</p>
+    </header>
+
+    <section>
+        <h2>Order Beer Online</h2>
+        <form id="orderForm">
+            <label for="productType">Select Product Type:</label>
+            <select id="productType" required>
+                <option value="">--Choose--</option>
+                <option value="Lager">Lager (Heineken, Budweiser, Stella Artois, Castle Lager [South Africa])</option>
+                <option value="Ale">Ale (Guinness, Kilkenny, Newcastle Brown Ale, Devil's Peak Pale Ale [South Africa])</option>
+                <option value="Stout">Stout (Murphy's, Beamish, Guinness Extra Stout, Castle Milk Stout [South Africa])</option>
+                <option value="Pilsner">Pilsner (Pilsner Urquell, Beck's, Tsingtao, Windhoek [Namibia/South Africa])</option>
+                <option value="IPA">IPA (Sierra Nevada, Lagunitas, BrewDog Punk IPA, Jack Black's Skeleton Coast IPA [South Africa])</option>
+                <option value="Wheat Beer">Wheat Beer (Hoegaarden, Blue Moon, Paulaner, CBC Amber Weiss [South Africa])</option>
+                <option value="Cider">Cider (Strongbow, Magners, Somersby, Savanna Dry [South Africa])</option>
+                <option value="Red Wine">Red Wine (Merlot, Cabernet Sauvignon, Shiraz, Kanonkop Kadette [South Africa], Meerlust Rubicon [South Africa])</option>
+                <option value="White Wine">White Wine (Chardonnay, Sauvignon Blanc, Riesling, Nederburg Sauvignon Blanc [South Africa], Durbanville Hills Chardonnay [South Africa])</option>
+                <option value="Rose Wine">Rosé Wine (Whispering Angel, Mateus, Barefoot, Boschendal Blanc de Noir [South Africa])</option>
+                <option value="Sparkling Wine">Sparkling Wine (Prosecco, Champagne, Cava, JC Le Roux Le Domaine [South Africa])</option>
+            </select>
+            <label for="quantity">Quantity (bottles):</label>
+            <input type="number" id="quantity" min="1" required>
+            <label for="customerName">Your Name:</label>
+            <input type="text" id="customerName" required>
+            <button type="submit">Place Order</button>
+        </form>
+        <div id="orderStatus"></div>
+    </section>
+
+    <section>
+        <h2>Company Stats</h2>
+        <div class="stats">
+            <div>
+                <strong>Employees</strong>
+                <br>
+                <span id="employeeCount" style="font-size:2.5rem; color:#2d6a4f;">25</span>
+            </div>
+            <div>
+                <strong>Customers</strong>
+                <br>
+                <span id="customerCount" style="font-size:2.5rem; color:#2d6a4f;">120</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="manager-section">
+        <h2>Manager Dashboard</h2>
+        <ul>
+            <li>View all orders</li>
+            <li>Update inventory</li>
+            <li>Manage employees</li>
+            <li>View sales reports</li>
+        </ul>
+        <button onclick="alert('Manager login required!')">Go to Manager Panel</button>
+    </section>
+
+    <script>
+        document.getElementById('orderForm').onsubmit = function(e) {
+            e.preventDefault();
+            const productType = document.getElementById('productType').value;
+            const quantity = document.getElementById('quantity').value;
+            const customerName = document.getElementById('customerName').value;
+            if (productType && quantity && customerName) {
+                document.getElementById('orderStatus').innerText = 
+                    `Thank you, ${customerName}! Your order for ${quantity} bottle(s) of ${productType} has been placed.`;
+                // Increment customer count
+                const customerCount = document.getElementById('customerCount');
+                customerCount.innerText = parseInt(customerCount.innerText) + 1;
+            }
+        }
+    </script>
+</body>
+</html>
